@@ -13,13 +13,12 @@ def currency_converter(amount, from_currency, to_currency):
 
 # Set up the Streamlit app
 st.title("Currency Converter")
-amount = st.number_input("Enter amount")
-from_currency = st.text_input("Enter currency to convert from").upper()
-to_currency = st.text_input("Enter currency to convert to").upper()
-convert_button = st.button("Convert")
+amount = st.number_input("Enter amount", value=1.00, step=0.01)
+from_currency = st.text_input("Enter currency to convert from", value="USD").upper()
+to_currency = st.text_input("Enter currency to convert to", value="EUR").upper()
 
-# Convert the currency and display the result
-if convert_button:
+# Convert the currency and display the result in real-time
+if from_currency and to_currency:
     converted_amount = currency_converter(amount, from_currency, to_currency)
     if converted_amount:
         st.write(f"{amount} {from_currency} = {converted_amount} {to_currency}")

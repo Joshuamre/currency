@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+import pycountry
 
 api_key = "7242dd2b7c3816ab6ff463e9"
 
@@ -13,9 +14,17 @@ def currency_converter(amount, from_currency, to_currency):
 
 # Set up the Streamlit app
 st.title("Currency Converter")
+
+# Autocomplete for currency codes
+currencies = [currency.alpha_3 for currency in pycountry.currencies]
+from_currency = st.selectbox("From Currency", currencies)
+to_currency = st.selectbox("To Currency", currencies)
+
+# Button to switch "from" and "to" currencies
+if st.button("Switch currencies"):
+    from_currency, to_currency = to_currency, from_currency
+
 amount = st.number_input("Enter amount", value=1.5, step=0.1, format="%.1f")
-from_currency = st.text_input("Enter currency to convert from", value="USD").upper()
-to_currency = st.text_input("Enter currency to convert to", value="EUR").upper()
 
 # Convert the currency and display the result in real-time
 if from_currency and to_currency:
